@@ -2,7 +2,6 @@ import os
 from collections import defaultdict
 from pathlib import Path
 import json
-from tqdm import tqdm
 
 all_words = json.loads(open("words.json", "r").read())
 
@@ -12,6 +11,7 @@ man_word_freq = defaultdict(int)
 
 can_dir = Path("lihkg/can")
 lihkg_dir = Path("lihkg")
+c4_dir = Path("c4-cantonese-filtered")
 
 # Read all sentences in can-xx.txt under lihkg/can
 for can_file in os.listdir(can_dir):
@@ -22,6 +22,13 @@ for can_file in os.listdir(can_dir):
                 can_word_freq[word] += 1
                 for char in word:
                     can_char_freq[char] += 1
+
+with open(c4_dir/"words.json", "r") as f:
+    for sent in json.loads(f.read()):
+        for word in sent:
+            can_word_freq[word] += 1
+            for char in word:
+                can_char_freq[char] += 1
 
 with open(lihkg_dir/"man_words.json", "r") as f:
     for sent in json.loads(f.read()):
