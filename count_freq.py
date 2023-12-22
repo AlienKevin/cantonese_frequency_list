@@ -11,7 +11,7 @@ can_char_freq = defaultdict(int)
 man_word_freq = defaultdict(int)
 
 can_dir = Path("lihkg/can")
-man_dir = Path("lihkg/man")
+lihkg_dir = Path("lihkg")
 
 # Read all sentences in can-xx.txt under lihkg/can
 for can_file in os.listdir(can_dir):
@@ -23,13 +23,10 @@ for can_file in os.listdir(can_dir):
                 for char in word:
                     can_char_freq[char] += 1
 
-for man_file in tqdm(os.listdir(man_dir)):
-    with open(man_dir/man_file, "r") as f:
-        for line in f.readlines():
-            line = line.strip()
-            for word in all_words:
-                if word in line:
-                    man_word_freq[word] += 1
+with open(lihkg_dir/"man_words.json", "r") as f:
+    for sent in json.loads(f.read()):
+        for word in sent:
+            man_word_freq[word] += 1
 
 # merge can_word_freq with man_word_freq
 word_freq = {}
