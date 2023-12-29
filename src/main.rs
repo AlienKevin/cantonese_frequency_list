@@ -44,7 +44,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .unwrap();
 
     // Process each line in parallel
-    let lines = BufReader::new(File::open("words.txt")?)
+    let lines: Vec<String> = BufReader::new(File::open("words.txt")?)
         .lines()
         .collect::<Result<Vec<_>, io::Error>>()?;
     lines.par_iter().tqdm().for_each(|line| {
