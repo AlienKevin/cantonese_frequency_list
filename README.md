@@ -22,3 +22,15 @@ Full table see `word_freq.tsv`. Contains words of different lengths, including s
 
 ## words.hk list
 See `word_freq.tsv` for a frequency table for all most words in the words.hk dictionary. 3605 words are missing in the corpus. You can see a full list of words in the dictionary in wordshk_words.json. Note that some words have multiple variant forms and they are treated as different words for counting purposes.
+
+## How to build the table
+
+Calculate the main `word_freq.tsv`:
+```bash
+python calculate_freq.py
+```
+
+Build the wordshk list:
+```
+cargo run --release
+```
